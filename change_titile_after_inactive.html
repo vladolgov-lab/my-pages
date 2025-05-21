@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Оригинальный заголовок</title>
+    <script>
+        const hiddenTitles = [
+            "Вернись, я скучаю!",
+            "Где ты? 😢",
+            "Ты забыл про меня?",
+            "Закрой другие вкладки!",
+            "Посмотри сюда 👀"
+        ];
+        
+        let titleChangeTimeout;
+        let isTabActive = true;
+        
+        // Функция для изменения заголовка
+        function changeTitleAfterDelay() {
+            if (!isTabActive) {
+                const randomIndex = Math.floor(Math.random() * hiddenTitles.length);
+                document.title = hiddenTitles[randomIndex];
+            }
+        }
+        
+        // Следим за видимостью вкладки
+        document.addEventListener("visibilitychange", function() {
+            if (document.hidden) {
+                // Вкладка стала неактивной
+                isTabActive = false;
+                titleChangeTimeout = setTimeout(changeTitleAfterDelay, 3000); // 3 секунды
+            } else {
+                // Вкладка снова активна
+                isTabActive = true;
+                clearTimeout(titleChangeTimeout); // Отменяем таймер
+                document.title = "Оригинальный заголовок"; // Возвращаем исходный заголовок
+            }
+        });
+    </script>
+</head>
+<body>
+    <h1>Попробуй переключиться на другую вкладку!</h1>
+    <p>Через 3 секунды заголовок изменится.</p>
+</body>
+</html>
