@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Меняющаяся иконка вкладки</title>
+    <!-- Изначальная иконка (можно заменить ссылкой) -->
+    <link id="favicon" rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🔵</text></svg>">
+    
+    <script>
+        const favicons = [
+            "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🔴</text></svg>",
+            "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🟡</text></svg>",
+            "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⚠️</text></svg>",
+            "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>👀</text></svg>"
+        ];
+        
+        const defaultFavicon = "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🔵</text></svg>";
+        let faviconTimeout;
+        
+        // Меняем favicon
+        function changeFavicon() {
+            if (document.hidden) {
+                const randomIndex = Math.floor(Math.random() * favicons.length);
+                document.getElementById("favicon").href = favicons[randomIndex];
+            }
+        }
+        
+        // Следим за видимостью вкладки
+        document.addEventListener("visibilitychange", () => {
+            if (document.hidden) {
+                faviconTimeout = setTimeout(changeFavicon, 3000); // Через 3 секунды
+            } else {
+                clearTimeout(faviconTimeout); // Отменяем таймер
+                document.getElementById("favicon").href = defaultFavicon; // Возвращаем исходную иконку
+            }
+        });
+    </script>
+</head>
+<body>
+    <h1>Переключись на другую вкладку!</h1>
+    <p>Через 3 секунды иконка изменится.</p>
+</body>
+</html>
