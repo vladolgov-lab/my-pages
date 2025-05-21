@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Иконка меняется каждые 5 секунд</title>
+    <link id="favicon" rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🔵</text></svg>">
+    
+    <script>
+        // Массив с иконками (используем emoji для простоты демонстрации)
+        const icons = [
+            "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🔴</text></svg>",
+            "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🟢</text></svg>",
+            "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🔵</text></svg>",
+            "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🟡</text></svg>",
+            "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🟣</text></svg>"
+        ];
+        
+        let currentIconIndex = 0;
+        const faviconElement = document.getElementById('favicon');
+        
+        function rotateIcon() {
+            // Устанавливаем следующую иконку
+            faviconElement.href = icons[currentIconIndex];
+            
+            // Увеличиваем индекс или сбрасываем на 0
+            currentIconIndex = (currentIconIndex + 1) % icons.length;
+            
+            // Устанавливаем таймер для следующего изменения
+            setTimeout(rotateIcon, 5000);
+        }
+        
+        // Запускаем ротацию при загрузке страницы
+        window.onload = function() {
+            rotateIcon();
+        };
+    </script>
+</head>
+<body>
+    <h1>Иконка вкладки меняется каждые 5 секунд!</h1>
+    <p>Посмотрите на иконку вкладки в браузере.</p>
+</body>
+</html>

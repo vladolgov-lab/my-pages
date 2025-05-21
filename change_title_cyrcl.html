@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Изменяющийся заголовок</title>
+    <script>
+        // Массив с вариантами заголовков
+        const titles = [
+            "Первый заголовок",
+            "Второй заголовок",
+            "Третий заголовок",
+            "Четвертый заголовок",
+            "Пятый заголовок"
+        ];
+        
+        let currentIndex = 0;
+        
+        function changeTitle() {
+            // Изменяем заголовок
+            document.title = titles[currentIndex];
+            
+            // Увеличиваем индекс или сбрасываем на 0, если достигли конца массива
+            currentIndex = (currentIndex + 1) % titles.length;
+            
+            // Устанавливаем таймер для следующего изменения
+            setTimeout(changeTitle, 5000);
+        }
+        
+        // Запускаем функцию при загрузке страницы
+        window.onload = function() {
+            changeTitle();
+        };
+    </script>
+</head>
+<body>
+    <h1>Заголовок этой страницы меняется каждые 5 секунд!</h1>
+    <p>Посмотрите на название вкладки в браузере.</p>
+</body>
+</html>
